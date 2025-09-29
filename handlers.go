@@ -417,7 +417,7 @@ func (s *server) UpdateWebhook() http.HandlerFunc {
 			events = ""
 		}
 
-		_, err = s.db.Exec("UPDATE users SET webhook=?, events=? WHERE id=?", webhook, events, userid)
+		_, _, err = s.db.Exec("UPDATE users SET webhook=$1, events=$2 WHERE id=$3", webhook, events, userid)
 		if err != nil {
 			s.Respond(w, r, http.StatusInternalServerError, errors.New(fmt.Sprintf("Could not update webhook: %v", err)))
 			return
