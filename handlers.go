@@ -283,12 +283,11 @@ func (s *server) Disconnect() http.HandlerFunc {
 
 					jsonData, err := json.Marshal(postmap)
 					if err == nil {
-						data := map[string]string{
-							"jsonData": string(jsonData),
-							"token":    token,
-						}
-						log.Info().Str("url", webhookurl).Str("eventType", "Disconnected").Msg("Sending Disconnected webhook")
-						go callHook(webhookurl, data, userid)
+						// data := map[string]string{
+						//     "jsonData": string(jsonData),
+						//     "token":    token,
+						// }
+						go callHook(webhookurl, string(jsonData), token, userid)
 					}
 				}
 
@@ -562,12 +561,11 @@ func (s *server) Logout() http.HandlerFunc {
 
 						jsonData, err := json.Marshal(postmap)
 						if err == nil {
-							data := map[string]string{
-								"jsonData": string(jsonData),
-								"token":    token,
-							}
-							log.Info().Str("url", webhookurl).Str("eventType", "LoggedOut").Msg("Sending LoggedOut webhook")
-							go callHook(webhookurl, data, userid)
+							// data := map[string]string{
+							//     "jsonData": string(jsonData),
+							//     "token":    token,
+							// }
+							go callHook(webhookurl, string(jsonData), token, userid)
 						}
 					}
 
